@@ -7,11 +7,13 @@ PKGS=(
     'plasma'
     #Audio
     'pipewire'
+    'easyeffects'
     #Other
     'base-devel'
     'kitty'
     'firefox'
     'dolphin'
+    'git'
 
 )
 
@@ -27,5 +29,15 @@ cd /home/$USER
 touch .xinitrc
 echo "export DESKTOP_SESSION=plasma" > .xinitrc
 echo "exec startplasma-x11" >> .xinitrc
+
+
+# Enable multithreading on makepkg.conf
+sed -i 's/#MAKEFLAGS="-j2"/MAKEFLAGS="-j$(nproc)"/' /etc/makepkg.conf
+
+
+# Enable multilib
+sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
+
+
 echo 'Done!'
 
