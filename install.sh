@@ -14,6 +14,8 @@ PKGS=(
     'firefox'
     'dolphin'
     'git'
+    'htop'
+    'systemd-resolvconf'
 
 )
 
@@ -37,6 +39,23 @@ sed -i 's/#MAKEFLAGS="-j2"/MAKEFLAGS="-j$(nproc)"/' /etc/makepkg.conf
 
 # Enable multilib
 sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
+
+
+# Make swapfile and enable it
+if free | awk '/^Swap:/ {exit !$2}'; then
+    echo "Found swap!"
+else
+    RAM_KB=$(grep MemTotal /proc/meminfo | awk '{print $2}')
+    RAM_MB=$(expr $RAM_KB / 1024 )
+
+    dd if=/dev/zero of=/swapfile bs=1M count=$RAM_MB status=progress
+    chmod 0600 /swapfile
+    mkswap -U clear /swapfile
+    swapon /swapfile
+
+    echo "# /swapfile" >> /etc/fstab
+    echo "/swapfile none    swap    defaults,nofail    0   0" >> /etc/fstab
+fi
 
 
 echo 'Done!'
