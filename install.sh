@@ -4,7 +4,7 @@ pacman -S "reflector" --noconfirm --needed
 pacman -S "rsync" --noconfirm --needed
 
 # Mirror backup
-#cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
 
 reflector --latest 20 --age 12 --verbose --protocol https --sort rate --save /etc/pacman.d/mirrorlist.test
 
@@ -45,7 +45,7 @@ PKGS=(
 
 for PKG in "${PKGS[@]}"; do
     echo "Installing: ${PKG}"
-    #pacman -S "$PKG" --noconfirm --needed
+    pacman -S "$PKG" --noconfirm --needed
 done
 
 
