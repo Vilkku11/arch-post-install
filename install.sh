@@ -61,7 +61,7 @@ DIR=$PWD
 # Create .xinitrc file for startx
 cd /home/$USER
 touch .xinitrc
-echo "export DESKTOP_SESSION=plasma" > .xinitrc
+echo "export DESKTOP_SESSION=plasma" >> .xinitrc
 echo "exec startplasma-x11" >> .xinitrc
 
 
