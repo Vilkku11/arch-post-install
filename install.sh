@@ -6,7 +6,7 @@ pacman -S "rsync" --noconfirm --needed
 # Mirror backup
 cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
 
-reflector --latest 20 --age 12 --verbose --protocol https --sort rate --save /etc/pacman.d/mirrorlist.test
+#reflector --latest 20 --age 12 --verbose --protocol https --sort rate --save /etc/pacman.d/mirrorlist.test
 
 
 
