@@ -40,6 +40,7 @@ PKGS=(
     'git'
     'htop'
     'systemd-resolvconf'
+    'neofetch'
 
 )
 
