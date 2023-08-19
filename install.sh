@@ -27,6 +27,7 @@ PKGS=(
     'awesome-terminal-fonts'
     'powerline-fonts'
     'vivid'
+    'wget'
     #Powerlevel dependencies
     'jsoncpp'
     'libuv'
@@ -41,7 +42,6 @@ PKGS=(
     'htop'
     'systemd-resolvconf'
     'neofetch'
-
 )
 
 for PKG in "${PKGS[@]}"; do
