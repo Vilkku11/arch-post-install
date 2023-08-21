@@ -1,53 +1,17 @@
-#Refresh mirrors
+# Configure pacman
 
-pacman -S "reflector" --noconfirm --needed
-pacman -S "rsync" --noconfirm --needed
+# Enable multilib
+sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
+pacman -Sy
 
-# Mirror backup
-cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
-
-#reflector --latest 20 --age 12 --verbose --protocol https --sort rate --save /etc/pacman.d/mirrorlist.test
-
+# Parallel Download
+sed -i 's/#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
 
 
-# Install packages
+
 echo 'Installing packages'
 
-PKGS=(
-    #Desktop environment
-    'xorg'
-    'xorg-xinit'
-    'plasma'
-    #Audio
-    'pipewire'
-    'easyeffects'
-    #zsh
-    'zsh'
-    'zsh-syntax-highlighting'
-    'awesome-terminal-fonts'
-    'powerline-fonts'
-    'vivid'
-    'wget'
-    #Powerlevel dependencies
-    'jsoncpp'
-    'libuv'
-    'rhash'
-    'cmake'
-    #Other
-    'base-devel'
-    'kitty'
-    'firefox'
-    'dolphin'
-    'git'
-    'htop'
-    'systemd-resolvconf'
-    'neofetch'
-)
-
-for PKG in "${PKGS[@]}"; do
-    echo "Installing: ${PKG}"
-    pacman -S "$PKG" --noconfirm --needed
-done
+pacman -S --noconfirm --needed `grep -v '^#' PKGS.txt´
 
 
 echo "Configuring system"
@@ -66,13 +30,11 @@ echo "export DESKTOP_SESSION=plasma" >> .xinitrc
 echo "exec startplasma-x11" >> .xinitrc
 
 
-# Enable multithreading on makepkg.conf
+# Set max cores according system on makepkg.conf
 sed -i 's/#MAKEFLAGS="-j2"/MAKEFLAGS="-j$(nproc)"/' /etc/makepkg.conf
 
 
-# Enable multilib
-sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
-pacman -Sy
+
 
 
 # Make swapfile and enable it

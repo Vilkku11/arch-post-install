@@ -1,0 +1,28 @@
+#Desktop environment
+xorg
+xorg-xinit
+plasma
+#Audio
+pipewire
+easyeffects
+#zsh
+zsh
+zsh-syntax-highlighting
+awesome-terminal-fonts
+powerline-fonts
+vivid
+wget
+#Powerlevel dependencies
+jsoncpp
+libuv
+rhash
+cmake
+#Other
+base-devel
+kitty
+firefox
+dolphin
+git
+htop
+systemd-resolvconf
+neofetch
