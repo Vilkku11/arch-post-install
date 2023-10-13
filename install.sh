@@ -11,7 +11,7 @@ sed -i 's/#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
 
 echo 'Installing packages'
 
-pacman -S --noconfirm --needed `grep -v '^#' PKGS.txt´
+pacman -S --noconfirm --needed $(awk '!/^#|^$/ {print $1}' file)
 
 
 echo "Configuring system"
