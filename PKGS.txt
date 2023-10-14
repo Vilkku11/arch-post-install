@@ -26,3 +26,5 @@ git
 htop
 systemd-resolvconf
 neofetch
+veracrypt
+keepassxc
