@@ -25,6 +25,7 @@ dolphin
 git
 htop
 systemd-resolvconf
+p7zip
 neofetch
 veracrypt
 keepassxc
