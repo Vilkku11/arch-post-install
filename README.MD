@@ -1,2 +1,2 @@
 ### Arch post install
-Simple post install script
+Straightforward Post-Installation Script
