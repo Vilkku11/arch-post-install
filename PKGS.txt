@@ -1,23 +1,23 @@
-#Desktop environment
+#-----Desktop environment-----
 xorg
 xorg-xinit
 plasma
-#Audio
+#-----Audio-----
 pipewire
 easyeffects
-#zsh
+#-----zsh-----
 zsh
 zsh-syntax-highlighting
 awesome-terminal-fonts
 powerline-fonts
 vivid
 wget
-#Powerlevel dependencies
+#-----Powerlevel dependencies-----
 jsoncpp
 libuv
 rhash
 cmake
-#Other
+#-----Other-----
 base-devel
 kitty
 firefox
