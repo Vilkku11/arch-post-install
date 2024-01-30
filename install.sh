@@ -1,4 +1,8 @@
-# Configure pacman
+# Check if running as root
+if [ "$(id -u)" != "0" ]; then
+    echo "This script must be run as root."
+    exit 1
+fi
 
 # Enable multilib
 sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
@@ -7,12 +11,9 @@ pacman -Sy
 # Parallel Download
 sed -i 's/#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
 
-
-
 echo 'Installing packages'
 
 pacman -S --noconfirm --needed $(awk '!/^#|^$/ {print $1}' PKGS.txt)
-
 
 echo "Configuring system"
 
@@ -22,20 +23,14 @@ USER=$(grep home /etc/passwd|cut -d: -f1)
 # Script directory
 DIR=$PWD
 
-
 # Create .xinitrc file for startx
 cd /home/$USER
 touch .xinitrc
 echo "export DESKTOP_SESSION=plasma" >> .xinitrc
 echo "exec startplasma-x11" >> .xinitrc
 
-
 # Set max cores according system on makepkg.conf
 sed -i 's/#MAKEFLAGS="-j2"/MAKEFLAGS="-j$(nproc)"/' /etc/makepkg.conf
-
-
-
-
 
 # Make swapfile and enable it
 if free | awk '/^Swap:/ {exit !$2}'; then
@@ -53,7 +48,6 @@ else
     echo "/swapfile none    swap    defaults,nofail    0   0" >> /etc/fstab
 fi
 
-
 # Setup zsh shell
 echo "Setting up zsh"
 
@@ -69,6 +63,5 @@ pacman -U "$(find . -type f -name "*tar.zst")" --noconfirm --needed
 cd $DIR
 cp -rv zsh_config/. /home/$USER
 chsh -s /bin/zsh $USER
-
 
 echo 'Done!'

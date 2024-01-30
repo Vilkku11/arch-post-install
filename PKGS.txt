@@ -17,6 +17,8 @@ jsoncpp
 libuv
 rhash
 cmake
+#-----Startup-----
+sddm
 #-----Other-----
 base-devel
 kitty
